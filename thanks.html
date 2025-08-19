@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Спасибо за покупку</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #0f0f12;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+    }
+    h1 {
+      color: #FFA500;
+      margin-bottom: 20px;
+    }
+    .key {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+    .code {
+      font-family: monospace;
+      font-size: 1.4em;
+      padding: 15px;
+      background: #1a1a2a;
+      color: #FFA500;
+      border-radius: 8px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+      opacity: 0;
+    }
+    .copy-btn {
+      padding: 10px 20px;
+      background: #FFA500;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .download-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: #FFA500;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.3em;
+      border-radius: 10px;
+      margin: 30px 0;
+      box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+    }
+    .timer {
+      color: #FFA500;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .loading {
+      font-size: 1.5em;
+      color: #FFA500;
+      margin: 20px 0;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-bg">
+    <video autoplay muted loop>
+      <source src="files/1vid8.mp4" type="video/mp4">
+      Ваш браузер не поддерживает видео.
+    </video>
+  </div>
+
+  <div class="container">
+    <h1>🎉 Спасибо за покупку!</h1>
+    <p>Генерация ключей…</p>
+    <div class="loading">🌀🌀🌀</div>
+
+    <div class="key">
+      <p><strong>📦 Код установки:</strong></p>
+      <div id="installCode" class="code"></div>
+      <button class="copy-btn" onclick="copyToClipboard('installCode')">📋 Скопировать</button>
+    </div>
+
+    <div class="key">
+      <p><strong>🔐 Код входа:</strong></p>
+      <div id="accessCode" class="code"></div>
+      <button class="copy-btn" onclick="copyToClipboard('accessCode')">📋 Скопировать</button>
+    </div>
+
+    <a href="https://downloader.disk.yandex.ru/disk/4e69d2fc3ce4165cef6c2a73054ace8edbd5c0c91dc128cbfc42e1b9570b1f7a/68a45598/vGzFKc0gUW0-ar7FIoNPlbIXaV4FELxVopYz-QMmAY8a0xpunvwErqrZYKTtAdtwcFVqwyUhh56X1tH6VVwBSw%3D%3D?uid=0&filename=AIST.zip&disposition=attachment&hash=4MxrNaQbQB0XnPE%2B4kV2J3Kv7h8w5Wy4K85AWX1VBCxXRA/lvFzkczW5uRlK2adAq/J6bpmRyOJonT3VoXnDag%3D%3D&limit=0&content_type=application%2Fzip&owner_uid=675133269&fsize=305068769&hid=46c79b50c8fdb2e0678fbb00a232d2ec&media_type=compressed&tknv=v3"
+       class="download-btn"
+       id="downloadLink"
+       download="AIST.zip">
+      💾 Скачать программу (291 МБ)
+    </a>
+
+    <p><em>⚠️ Ссылка действуют 30 минут. Сохраните архив программы сейчас.</em></p>
+    <p class="timer" id="timer"></p>
+  </div>
+
+  <script>
+    // Анимация генерации кодов
+    setTimeout(() => {
+      document.querySelector('.loading').textContent = 'Готово!';
+      document.getElementById('installCode').textContent = 'J4#vR7@mX9%pL2!zN3%qT8&wY6';
+      document.getElementById('accessCode').textContent = 'X7@mN9#pL2$vQ4%rT8!zY3&wK6';
+      document.getElementById('installCode').style.opacity = '1';
+      document.getElementById('accessCode').style.opacity = '1';
+    }, 10000);
+
+    // Копирование
+    function copyToClipboard(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code)
+        .then(() => alert('Код скопирован!'))
+        .catch(err => console.error('Ошибка:', err));
+    }
+
+    // Таймер 30 минут
+    let timeLeft = 30 * 60;
+    const timer = document.getElementById('timer');
+    const interval = setInterval(() => {
+      const min = Math.floor(timeLeft / 60);
+      const sec = timeLeft % 60;
+      timer.textContent = `Осталось: ${min}:${sec < 10 ? '0' + sec : sec}`;
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        document.body.innerHTML = '<h2 style="color:red;">⚠️ Время истекло</h2>';
+      }
+      timeLeft--;
+    }, 1000);
+  </script>
+</body>
+</html>
